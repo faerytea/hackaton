@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Getter
 public class MinCostScheduleBuilder {
     private final Collection<Worker> workers;
-    private Schedule schedule;
+    private Schedule schedule = new Schedule();
 
 
     public MinCostScheduleBuilder(Collection<Worker> workers) {
@@ -37,9 +37,9 @@ public class MinCostScheduleBuilder {
         return workers.stream()
                 .filter(worker -> worker.getWorks().containsKey(taskName))
                 .collect(Collectors.maxBy((w1, w2) -> {
-                    long t1 = w1.getWorks().get(taskName).getTime();
-                    long t2 = w2.getWorks().get(taskName).getTime();
-                    return (int) (t1 - t2);
+                    long t1 = w1.getWorks().get(taskName).getCost();
+                    long t2 = w2.getWorks().get(taskName).getCost();
+                    return (int) (t2 - t1);
                 })).get();
     }
 }

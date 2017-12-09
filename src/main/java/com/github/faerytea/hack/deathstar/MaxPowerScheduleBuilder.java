@@ -42,7 +42,6 @@ public class MaxPowerScheduleBuilder {
             }
         }
         buildWeapon.forEach(weapon -> System.out.println(weapon.getName()));
-        //weapons.forEach(weapon -> System.out.println(weapon.getName() + " " + costs.get(weapon)));
         System.out.println("total cost: " + minCostBuilder.getSchedule().getTotalCost());
     }
 
