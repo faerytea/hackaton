@@ -18,6 +18,13 @@ public class Schedule {
         events.add(new ScheduleEvent(work, worker));
     }
 
+    public void print() {
+        events.forEach(event -> System.out.println(
+                        event.getWorker().getName() +
+                        " " +
+                        event.getWork().getName()));
+    }
+
     public long getTotalTime() {
         return events.stream()
                 .mapToLong(event -> event.getWork().getTime())
