@@ -26,7 +26,7 @@ public class MinCostScheduleBuilder {
     }
 
     public void addProduct(Product product) {
-        product.dependencies.forEach(d -> addProduct(d));
+        product.dependencies.forEach(this::addProduct);
         product.getTaskNames().forEach(taskName -> {
             Worker worker = getMinCostWorker(taskName);
             schedule.addEvent(taskName, worker);
@@ -34,12 +34,10 @@ public class MinCostScheduleBuilder {
     }
 
     private Worker getMinCostWorker(String taskName) {
-        return workers.stream()
-                .filter(worker -> worker.getWorks().containsKey(taskName))
-                .collect(Collectors.maxBy((w1, w2) -> {
+        return Main.tasksToWorkers.get(taskName).stream().max((w1, w2) -> {
                     long t1 = w1.getWorks().get(taskName).getCost();
                     long t2 = w2.getWorks().get(taskName).getCost();
                     return (int) (t2 - t1);
-                })).get();
+                }).get();
     }
 }
