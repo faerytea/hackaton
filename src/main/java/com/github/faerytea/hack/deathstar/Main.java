@@ -49,7 +49,7 @@ public class Main {
             ArrayList<Work> dynamoLabors = new ArrayList<>(2);
             atomicLabors.add(new Work("Заряд батарей бластера", 3, 40));
             dynamoLabors.add(new Work("Заряд батарей бластера", 5, 30));
-            atomicLabors.add(new Work("Заряд плазменных батарей", 3, 40));
+            atomicLabors.add(new Work("Заряд плазменных батарей", 4, 50));
             dynamoLabors.add(new Work("Заряд плазменных батарей", 1, 500));
             final Worker atomic = new Worker("Атомный аккумулятор", atomicLabors);
             final Worker dynamo = new Worker("Динамо-машина", dynamoLabors);
@@ -70,7 +70,7 @@ public class Main {
             droidLabors.add(new Work("Сборка лазера", 4, 40));
             shivaLabors.add(new Work("Сборка лазера", 8, 1500, 10));
             droidLabors.add(new Work("Сборка суперлазера", 100, 4000));
-            shivaLabors.add(new Work("Сборка суперлазера", 40, 800));
+            shivaLabors.add(new Work("Сборка суперлазера", 40, 8000));
             droidLabors.add(new Work("Сборка тяжёлого лазера", 500, 5000));
             shivaLabors.add(new Work("Сборка тяжёлого лазера", 250, 10000));
             droidLabors.add(new Work("Сборка меча", 50, 50));
@@ -79,7 +79,7 @@ public class Main {
             shivaLabors.add(new Work("Сборка головы", 15, 280, 3));
             droidLabors.add(new Work("Сборка ноги", 20, 60));
             shivaLabors.add(new Work("Сборка ноги", 10, 1200, 10));
-            droidLabors.add(new Work("Сборка руки", 20, 40));
+            droidLabors.add(new Work("Сборка руки", 10, 40));
             shivaLabors.add(new Work("Сборка руки", 5, 80, 3));
             droidLabors.add(new Work("Вставка компьютера", 5, 15));
             shivaLabors.add(new Work("Вставка компьютера", 2, 150, 8));
@@ -143,6 +143,13 @@ public class Main {
             droidBuilders.add(new Work("Конструирование камеры", 450, 3000));
             droidBuilders.add(new Work("Конструирование нейтронной ловушки", 200, 600));
             droidBuilders.add(new Work("Изготовление кассеты", 200, 1800));
+            final Worker sithh = new Worker("Ситх-строитель", sithBuilders);
+            final Worker droid = new Worker("Отряд дроидов-строителей", droidBuilders);
+            workers.add(droid);
+            workers.add(sithh);
+            for (Work work : droidBuilders) {
+                tasksToWorkers.put(work.name, Arrays.asList(droid, sithh));
+            }
         }
         // optics
         {
@@ -155,6 +162,12 @@ public class Main {
             itMo.add(new Work("Выращивание кристалла", 25, 200));
             itMo.add(new Work("Огранка кристалла", 40, 300));
             itMo.add(new Work("Огранка тяжёлого рубина", 6000, 140000));
+            final Worker itMoOptic = new Worker("Робот-оптик \"Ит Мо\"", itMo);
+            workers.add(itMoOptic);
+            for (Work work : itMo) {
+                tasksToWorkers.put(work.name, Arrays.asList(itMoOptic));
+            }
+
         }
         // haulers
         {
@@ -163,6 +176,11 @@ public class Main {
             haulersSquad.add(new Work("Перетаскивание тяжёлого лазера", 100, 6000));
             haulersSquad.add(new Work("Перетаскивание реактора", 150, 9000));
             haulersSquad.add(new Work("Перетаскивание корпуса", 200, 12000));
+            final Worker hauler = new Worker("Отряд грузчиков", haulersSquad);
+            workers.add(hauler);
+            for (Work work : haulersSquad) {
+                tasksToWorkers.put(work.name, Arrays.asList(hauler));
+            }
         }
         // metalfuckers
         {
@@ -172,6 +190,11 @@ public class Main {
             metallurgists.add(new Work("Добыча платины", 6, 300));
             metallurgists.add(new Work("Волочение платины", 4, 150));
             metallurgists.add(new Work("Добыча бериллия", 5, 500));
+            final Worker metalWorker = new Worker("Дроид-металлург", metallurgists);
+            workers.add(metalWorker);
+            for (Work work : metallurgists) {
+                tasksToWorkers.put(work.name, Arrays.asList(metalWorker));
+            }
         }
     }
 }
