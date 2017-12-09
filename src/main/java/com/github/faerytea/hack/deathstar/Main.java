@@ -1,8 +1,6 @@
 package com.github.faerytea.hack.deathstar;
 
-import com.github.faerytea.hack.deathstar.entities.Product;
-import com.github.faerytea.hack.deathstar.entities.Work;
-import com.github.faerytea.hack.deathstar.entities.Worker;
+import com.github.faerytea.hack.deathstar.entities.*;
 import lombok.val;
 
 import java.util.*;
@@ -14,10 +12,10 @@ import static java.util.Collections.singletonList;
 public class Main {
     public static final Set<Worker> workers = new HashSet<>();
     public static final Map<String, List<Worker>> tasksToWorkers = new HashMap<>();
-    public static final Product deathStar;
-    public static final Product blaster;
-    public static final Product droid;
-    public static final Product lightsabre;
+    public static final Weapon deathStar;
+    public static final Weapon blaster;
+    public static final Weapon droid;
+    public static final Weapon lightsabre;
 
     static {
         // troops
@@ -213,10 +211,11 @@ public class Main {
                 val body = new Product("Туловище", singletonList("Сборка туловища"), Collections.emptyList());
                 val leg = new Product("Нога", singletonList("Сборка ноги"), Collections.emptyList());
                 val head = new Product("Голова", asList("Сборка головы", "Вставка компьютера"), Collections.emptyList());
-                droid = new Product(
+                droid = new Weapon(
                         "Боевой дроид",
                         singletonList("Сборка дроида"),
-                        asList(hand, hand, body, leg, leg, head));
+                        asList(hand, hand, body, leg, leg, head),
+                        1);
             }
             // lightsabre
             {
@@ -228,10 +227,11 @@ public class Main {
                         "Кристалл",
                         asList("Выращивание кристалла", "Огранка кристалла"),
                         Collections.emptyList());
-                lightsabre = new Product(
+                lightsabre = new Weapon(
                         "Световой меч",
                         asList("Сборка меча", "Полировка рукояти меча", "Заряд плазменных батарей"),
-                        asList(cell, crystal));
+                        asList(cell, crystal),
+                        7);
             }
             // blaster
             {
@@ -243,14 +243,15 @@ public class Main {
                         "Лазер",
                         asList("Огранка рубина", "Изготовление системы зеркал", "Сборка лазера"),
                         Collections.emptyList());
-                blaster = new Product(
+                blaster = new Weapon(
                         "Бластер",
                         asList(
                                 "Установка лазера бластера в корпус",
                                 "Полировка рукояти бластера",
                                 "Заряд батарей бластера",
                                 "Пристрелка"),
-                        asList(body, laser));
+                        asList(body, laser),
+                        2);
             }
             // death star
             {
@@ -325,7 +326,7 @@ public class Main {
                         "Тяжёлый лазер",
                         asList("Огранка тяжёлого рубина", "Изготовление системы тяжёлых зеркал", "Сборка тяжёлого лазера"),
                         emptyList());
-                deathStar = new Product(
+                deathStar = new Weapon(
                         "Звезда Смерти",
                         asList(
                                 "Перетаскивание корпуса",
@@ -335,8 +336,30 @@ public class Main {
                                 "Монтаж тяжёлого лазера",
                                 "Перетаскивание реактора",
                                 "Монтаж реактора"),
-                        asList(superLaser, heavyLaser, body, reactor));
+                        asList(superLaser, heavyLaser, body, reactor),
+                        1000);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        task4();
+    }
+
+    private static void task2() {
+        MinCostScheduleBuilder scheduleBuilder = new MinCostScheduleBuilder(workers);
+        scheduleBuilder.addProduct(deathStar);
+        Schedule schedule = scheduleBuilder.getSchedule();
+        System.out.println("cost: " + schedule.getTotalCost());
+        System.out.println("time: " + schedule.getTotalTime());
+        schedule.print();
+    }
+
+    private static void task4() {
+        MaxPowerScheduleBuilder scheduleBuilder = new MaxPowerScheduleBuilder(
+                asList(blaster),
+                workers);
+        scheduleBuilder.buildSchedule(10000);
+
     }
 }

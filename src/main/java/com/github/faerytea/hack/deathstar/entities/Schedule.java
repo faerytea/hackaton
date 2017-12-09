@@ -25,6 +25,7 @@ public class Schedule {
                         event.getWork().getName()));
     }
 
+    //Без учета переключений!!!
     public long getTotalTime() {
         return events.stream()
                 .mapToLong(event -> event.getWork().getTime())

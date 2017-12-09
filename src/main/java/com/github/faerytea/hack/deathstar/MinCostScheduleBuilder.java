@@ -3,30 +3,30 @@ package com.github.faerytea.hack.deathstar;
 import com.github.faerytea.hack.deathstar.entities.Product;
 import com.github.faerytea.hack.deathstar.entities.Schedule;
 import com.github.faerytea.hack.deathstar.entities.Worker;
+import lombok.Getter;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
  * Created by ksenia on 09.12.17.
  */
+@Getter
 public class MinCostScheduleBuilder {
-    private final List<Worker> workers;
+    private final Collection<Worker> workers;
     private Schedule schedule;
 
 
-    public MinCostScheduleBuilder(List<Worker> workers) {
+    public MinCostScheduleBuilder(Collection<Worker> workers) {
         this.workers = workers;
     }
 
-    public Schedule buildSchedule(Product product) {
+    public void newSchedule() {
         schedule = new Schedule();
-        makeProduct(product);
-        return schedule;
     }
 
-    private void makeProduct(Product product) {
-        product.dependencies.forEach(d -> makeProduct(d));
+    public void addProduct(Product product) {
+        product.dependencies.forEach(d -> addProduct(d));
         product.getTaskNames().forEach(taskName -> {
             Worker worker = getMinCostWorker(taskName);
             schedule.addEvent(taskName, worker);
