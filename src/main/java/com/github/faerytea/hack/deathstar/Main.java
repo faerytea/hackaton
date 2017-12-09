@@ -8,11 +8,13 @@ import lombok.val;
 import java.util.*;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 
 public class Main {
     public static final Set<Worker> workers = new HashSet<>();
     public static final Map<String, List<Worker>> tasksToWorkers = new HashMap<>();
-    public static final Product deathStar = null;
+    public static final Product deathStar;
     public static final Product blaster;
     public static final Product droid;
     public static final Product lightsabre;
@@ -170,7 +172,7 @@ public class Main {
             final Worker itMoOptic = new Worker("Робот-оптик \"Ит Мо\"", itMo);
             workers.add(itMoOptic);
             for (Work work : itMo) {
-                tasksToWorkers.put(work.name, asList(itMoOptic));
+                tasksToWorkers.put(work.name, singletonList(itMoOptic));
             }
 
         }
@@ -184,7 +186,7 @@ public class Main {
             final Worker hauler = new Worker("Отряд грузчиков", haulersSquad);
             workers.add(hauler);
             for (Work work : haulersSquad) {
-                tasksToWorkers.put(work.name, asList(hauler));
+                tasksToWorkers.put(work.name, singletonList(hauler));
             }
         }
         // metalfuckers
@@ -198,22 +200,22 @@ public class Main {
             final Worker metalWorker = new Worker("Дроид-металлург", metallurgists);
             workers.add(metalWorker);
             for (Work work : metallurgists) {
-                tasksToWorkers.put(work.name, asList(metalWorker));
+                tasksToWorkers.put(work.name, singletonList(metalWorker));
             }
         }
         // production
         {
-            val pl = new Product("Платина", asList("Добыча платины"), Collections.emptyList());
-            val pb = new Product("Слиток свинца", asList("Добыча свинца"), Collections.emptyList());
+            val pl = new Product("Платина", singletonList("Добыча платины"), Collections.emptyList());
+            val pb = new Product("Слиток свинца", singletonList("Добыча свинца"), Collections.emptyList());
             // droid
             {
-                val hand = new Product("Рука", asList("Сборка руки"), Collections.emptyList());
-                val body = new Product("Туловище", asList("Сборка туловища"), Collections.emptyList());
-                val leg = new Product("Нога", asList("Сборка ноги"), Collections.emptyList());
+                val hand = new Product("Рука", singletonList("Сборка руки"), Collections.emptyList());
+                val body = new Product("Туловище", singletonList("Сборка туловища"), Collections.emptyList());
+                val leg = new Product("Нога", singletonList("Сборка ноги"), Collections.emptyList());
                 val head = new Product("Голова", asList("Сборка головы", "Вставка компьютера"), Collections.emptyList());
                 droid = new Product(
                         "Боевой дроид",
-                        asList("Сборка дроида"),
+                        singletonList("Сборка дроида"),
                         asList(hand, hand, body, leg, leg, head));
             }
             // lightsabre
@@ -235,7 +237,7 @@ public class Main {
             {
                 val body = new Product(
                         "Корпус",
-                        asList("Сборка корпуса бластера"),
+                        singletonList("Сборка корпуса бластера"),
                         Collections.emptyList());
                 val laser = new Product(
                         "Лазер",
@@ -249,6 +251,91 @@ public class Main {
                                 "Заряд батарей бластера",
                                 "Пристрелка"),
                         asList(body, laser));
+            }
+            // death star
+            {
+                val nanoPb = new Product(
+                        "Наносвинцовое покрытие",
+                        singletonList("Раскатка слитка"),
+                        asList(pb, pb));
+                val threadPl = new Product(
+                        "Платиновая проволока",
+                        singletonList("Волочение платины"),
+                        singletonList(pl));
+                val bioProtection = new Product(
+                        "Биозащитная оболочка",
+                        asList(
+                                "Склейка двух наносвинцовых покрытий",
+                                "Склейка двух наносвинцовых покрытий",
+                                "Склейка двух пар наносвинцовых покрытий"),
+                        asList(nanoPb, nanoPb, nanoPb, nanoPb));
+                val body = new Product(
+                        "Корпус станции",
+                        singletonList("Соединение биозащитных оболочек"),
+                        asList(bioProtection, bioProtection, bioProtection, bioProtection, bioProtection));
+                val coil = new Product(
+                        "Катушка",
+                        asList("Сгибание проволоки катушки", "Вставка сердечника"),
+                        asList(threadPl, threadPl));
+                val solenoid = new Product(
+                        "Соленоид",
+                        asList("Сгибание проволоки соленоида", "Вставка сердечника"),
+                        singletonList(threadPl));
+                val corCoil = new Product(
+                        "Корректирующая катушка",
+                        asList("Сгибание проволоки корректирующей катушки", "Вставка сердечника"),
+                        singletonList(threadPl));
+                val tokamak = new Product(
+                        "Токамак",
+                        asList("Установка катушек и соленоида", "Установка корректирующих катушек"),
+                        asList(coil, solenoid, corCoil));
+                val vacuum = new Product(
+                        "Вакуумная камера",
+                        asList("Конструирование камеры", "Откачка воздуха"),
+                        emptyList());
+                val be = new Product(
+                        "Бериллий",
+                        singletonList("Добыча бериллия"),
+                        emptyList());
+                val beTape = new Product(
+                        "Бериллиевая кассета",
+                        singletonList("Изготовление кассеты"),
+                        asList(be, be, be));
+                val blancet = new Product(
+                        "Бланкет",
+                        asList("Монтаж кассет", "Конструирование нейтронной ловушки"),
+                        asList(beTape, beTape));
+                val fridge = new Product(
+                        "Холодильник",
+                        singletonList("Изготовление холодильника"),
+                        emptyList());
+                val cryostat = new Product(
+                        "Криостат",
+                        singletonList("Сборка криостата"),
+                        asList(bioProtection, fridge));
+                val reactor = new Product(
+                        "Реактор гиперматериального синтеза",
+                        singletonList("Сборка реактора"),
+                        asList(tokamak, vacuum, blancet, cryostat));
+                val superLaser = new Product(
+                        "Суперлазер",
+                        asList("Огранка здорового рубина", "Изготовление системы здоровых зеркал", "Сборка суперлазера"),
+                        emptyList());
+                val heavyLaser = new Product(
+                        "Тяжёлый лазер",
+                        asList("Огранка тяжёлого рубина", "Изготовление системы тяжёлых зеркал", "Сборка тяжёлого лазера"),
+                        emptyList());
+                deathStar = new Product(
+                        "Звезда Смерти",
+                        asList(
+                                "Перетаскивание корпуса",
+                                "Перетаскивание суперлазера",
+                                "Монтаж суперлазера",
+                                "Перетаскивание тяжёлого лазера",
+                                "Монтаж тяжёлого лазера",
+                                "Перетаскивание реактора",
+                                "Монтаж реактора"),
+                        asList(superLaser, heavyLaser, body, reactor));
             }
         }
     }
