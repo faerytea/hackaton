@@ -13,6 +13,11 @@ import java.util.List;
 public class Schedule {
     private List<ScheduleEvent> events = new ArrayList<>();
 
+    public void addEvent(String workName, Worker worker) {
+        Work work = worker.getWorks().get(workName);
+        events.add(new ScheduleEvent(work, worker));
+    }
+
     public long getTotalTime() {
         return events.stream()
                 .mapToLong(event -> event.getWork().getTime())
