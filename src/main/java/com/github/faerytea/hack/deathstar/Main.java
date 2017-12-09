@@ -5,14 +5,18 @@ import com.github.faerytea.hack.deathstar.entities.Work;
 import com.github.faerytea.hack.deathstar.entities.Worker;
 import lombok.val;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
     public static final Set<Worker> workers = new HashSet<>();
     public static final Map<String, List<Worker>> tasksToWorkers = new HashMap<>();
     public static final Product deathStar = null;
+    public static final Product blaster;
+    public static final Product droid;
+    public static final Product lightsabre;
 
-    public static void init() {
+    static {
         // troops
         {
             ArrayList<Work> troopsLabors = new ArrayList<>(9);
@@ -131,7 +135,7 @@ public class Main {
         {
             val sithBuilders = new ArrayList<Work>();
             val droidBuilders = new ArrayList<Work>();
-            sithBuilders.add(new Work("Соединение биозащитных оболочек", 1000,800));
+            sithBuilders.add(new Work("Соединение биозащитных оболочек", 1000, 800));
             sithBuilders.add(new Work("Склейка двух наносвинцовых покрытий", 15, 40));
             sithBuilders.add(new Work("Склейка двух пар наносвинцовых покрытий", 20, 45));
             sithBuilders.add(new Work("Конструирование камеры", 500, 2500));
@@ -194,6 +198,56 @@ public class Main {
             workers.add(metalWorker);
             for (Work work : metallurgists) {
                 tasksToWorkers.put(work.name, Arrays.asList(metalWorker));
+            }
+        }
+        // production
+        {
+            val pl = new Product("Платина", Arrays.asList("Добыча платины"), Collections.emptyList());
+            val pb = new Product("Слиток свинца", Arrays.asList("Добыча свинца"), Collections.emptyList());
+            // droid
+            {
+                val hand = new Product("Рука", Arrays.asList("Сборка руки"), Collections.emptyList());
+                val body = new Product("Туловище", Arrays.asList("Сборка туловища"), Collections.emptyList());
+                val leg = new Product("Нога", Arrays.asList("Сборка ноги"), Collections.emptyList());
+                val head = new Product("Голова", Arrays.asList("Сборка головы", "Вставка компьютера"), Collections.emptyList());
+                droid = new Product(
+                        "Боевой дроид",
+                        Arrays.asList("Сборка дроида"),
+                        Arrays.asList(hand, hand, body, leg, leg, head));
+            }
+            // lightsabre
+            {
+                val cell = new Product(
+                        "Энергоячейка",
+                        Arrays.asList("Изготовление металлических пластин", "Наполнение электролитом"),
+                        Arrays.asList(pl, pb));
+                val crystal = new Product(
+                        "Кристалл",
+                        Arrays.asList("Выращивание кристалла", "Огранка кристалла"),
+                        Collections.emptyList());
+                lightsabre = new Product(
+                        "Световой меч",
+                        Arrays.asList("Сборка меча", "Полировка рукояти меча", "Заряд плазменных батарей"),
+                        Arrays.asList(cell, crystal));
+            }
+            // blaster
+            {
+                val body = new Product(
+                        "Корпус",
+                        Arrays.asList("Сборка корпуса бластера"),
+                        Collections.emptyList());
+                val laser = new Product(
+                        "Лазер",
+                        Arrays.asList("Огранка рубина", "Изготовление системы зеркал", "Сборка лазера"),
+                        Collections.emptyList());
+                blaster = new Product(
+                        "Бластер",
+                        Arrays.asList(
+                                "Установка лазера бластера в корпус",
+                                "Полировка рукояти бластера",
+                                "Заряд батарей бластера",
+                                "Пристрелка"),
+                        Arrays.asList(body, laser));
             }
         }
     }
