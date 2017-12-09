@@ -5,8 +5,9 @@ import com.github.faerytea.hack.deathstar.entities.Work;
 import com.github.faerytea.hack.deathstar.entities.Worker;
 import lombok.val;
 
-import java.lang.reflect.Array;
 import java.util.*;
+
+import static java.util.Arrays.asList;
 
 public class Main {
     public static final Set<Worker> workers = new HashSet<>();
@@ -44,7 +45,7 @@ public class Main {
             workers.add(troops);
             workers.add(advancedTroops);
             for (Work work : troopsLabors) {
-                tasksToWorkers.put(work.name, Arrays.asList(troops, advancedTroops));
+                tasksToWorkers.put(work.name, asList(troops, advancedTroops));
             }
         }
         // accums
@@ -60,7 +61,7 @@ public class Main {
             workers.add(atomic);
             workers.add(dynamo);
             for (Work work : atomicLabors) {
-                tasksToWorkers.put(work.name, Arrays.asList(atomic, dynamo));
+                tasksToWorkers.put(work.name, asList(atomic, dynamo));
             }
         }
         // constructors
@@ -98,7 +99,7 @@ public class Main {
             workers.add(droid);
             workers.add(shiva);
             for (Work work : droidLabors) {
-                tasksToWorkers.put(work.name, Arrays.asList(droid, shiva));
+                tasksToWorkers.put(work.name, asList(droid, shiva));
             }
         }
         // installers
@@ -128,7 +129,7 @@ public class Main {
             workers.add(droid);
             workers.add(sithh);
             for (Work work : droidLabors) {
-                tasksToWorkers.put(work.name, Arrays.asList(droid, sithh));
+                tasksToWorkers.put(work.name, asList(droid, sithh));
             }
         }
         // builders
@@ -152,7 +153,7 @@ public class Main {
             workers.add(droid);
             workers.add(sithh);
             for (Work work : droidBuilders) {
-                tasksToWorkers.put(work.name, Arrays.asList(droid, sithh));
+                tasksToWorkers.put(work.name, asList(droid, sithh));
             }
         }
         // optics
@@ -169,7 +170,7 @@ public class Main {
             final Worker itMoOptic = new Worker("Робот-оптик \"Ит Мо\"", itMo);
             workers.add(itMoOptic);
             for (Work work : itMo) {
-                tasksToWorkers.put(work.name, Arrays.asList(itMoOptic));
+                tasksToWorkers.put(work.name, asList(itMoOptic));
             }
 
         }
@@ -183,7 +184,7 @@ public class Main {
             final Worker hauler = new Worker("Отряд грузчиков", haulersSquad);
             workers.add(hauler);
             for (Work work : haulersSquad) {
-                tasksToWorkers.put(work.name, Arrays.asList(hauler));
+                tasksToWorkers.put(work.name, asList(hauler));
             }
         }
         // metalfuckers
@@ -197,57 +198,57 @@ public class Main {
             final Worker metalWorker = new Worker("Дроид-металлург", metallurgists);
             workers.add(metalWorker);
             for (Work work : metallurgists) {
-                tasksToWorkers.put(work.name, Arrays.asList(metalWorker));
+                tasksToWorkers.put(work.name, asList(metalWorker));
             }
         }
         // production
         {
-            val pl = new Product("Платина", Arrays.asList("Добыча платины"), Collections.emptyList());
-            val pb = new Product("Слиток свинца", Arrays.asList("Добыча свинца"), Collections.emptyList());
+            val pl = new Product("Платина", asList("Добыча платины"), Collections.emptyList());
+            val pb = new Product("Слиток свинца", asList("Добыча свинца"), Collections.emptyList());
             // droid
             {
-                val hand = new Product("Рука", Arrays.asList("Сборка руки"), Collections.emptyList());
-                val body = new Product("Туловище", Arrays.asList("Сборка туловища"), Collections.emptyList());
-                val leg = new Product("Нога", Arrays.asList("Сборка ноги"), Collections.emptyList());
-                val head = new Product("Голова", Arrays.asList("Сборка головы", "Вставка компьютера"), Collections.emptyList());
+                val hand = new Product("Рука", asList("Сборка руки"), Collections.emptyList());
+                val body = new Product("Туловище", asList("Сборка туловища"), Collections.emptyList());
+                val leg = new Product("Нога", asList("Сборка ноги"), Collections.emptyList());
+                val head = new Product("Голова", asList("Сборка головы", "Вставка компьютера"), Collections.emptyList());
                 droid = new Product(
                         "Боевой дроид",
-                        Arrays.asList("Сборка дроида"),
-                        Arrays.asList(hand, hand, body, leg, leg, head));
+                        asList("Сборка дроида"),
+                        asList(hand, hand, body, leg, leg, head));
             }
             // lightsabre
             {
                 val cell = new Product(
                         "Энергоячейка",
-                        Arrays.asList("Изготовление металлических пластин", "Наполнение электролитом"),
-                        Arrays.asList(pl, pb));
+                        asList("Изготовление металлических пластин", "Наполнение электролитом"),
+                        asList(pl, pb));
                 val crystal = new Product(
                         "Кристалл",
-                        Arrays.asList("Выращивание кристалла", "Огранка кристалла"),
+                        asList("Выращивание кристалла", "Огранка кристалла"),
                         Collections.emptyList());
                 lightsabre = new Product(
                         "Световой меч",
-                        Arrays.asList("Сборка меча", "Полировка рукояти меча", "Заряд плазменных батарей"),
-                        Arrays.asList(cell, crystal));
+                        asList("Сборка меча", "Полировка рукояти меча", "Заряд плазменных батарей"),
+                        asList(cell, crystal));
             }
             // blaster
             {
                 val body = new Product(
                         "Корпус",
-                        Arrays.asList("Сборка корпуса бластера"),
+                        asList("Сборка корпуса бластера"),
                         Collections.emptyList());
                 val laser = new Product(
                         "Лазер",
-                        Arrays.asList("Огранка рубина", "Изготовление системы зеркал", "Сборка лазера"),
+                        asList("Огранка рубина", "Изготовление системы зеркал", "Сборка лазера"),
                         Collections.emptyList());
                 blaster = new Product(
                         "Бластер",
-                        Arrays.asList(
+                        asList(
                                 "Установка лазера бластера в корпус",
                                 "Полировка рукояти бластера",
                                 "Заряд батарей бластера",
                                 "Пристрелка"),
-                        Arrays.asList(body, laser));
+                        asList(body, laser));
             }
         }
     }
