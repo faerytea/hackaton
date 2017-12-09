@@ -13,6 +13,6 @@ import java.util.List;
 @ToString
 public class Product {
     public final String name;
-    public final List<Work> tasks;
+    public final List<String> taskNames;
     public final List<Product> dependencies;
 }
