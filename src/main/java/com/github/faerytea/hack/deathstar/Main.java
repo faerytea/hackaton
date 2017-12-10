@@ -266,7 +266,7 @@ public class Main {
                 val threadPl = new Product(
                         "Платиновая проволока",
                         singletonList("Волочение платины"),
-                        singletonList(pl));
+                        asList(pl, pl));
                 val bioProtection = new Product(
                         "Биозащитная оболочка",
                         asList(
