@@ -353,7 +353,7 @@ public class Main {
 
     private static void task2() {
         System.out.println("task 2");
-        val schedule = MinCostScheduleBuilder.buildFor(deathStar);
+        val schedule = new MinCostScheduleBuilder().build(deathStar);
         System.out.println("cost: " + schedule.getTotalCost());
         schedule.print();
     }
@@ -362,6 +362,8 @@ public class Main {
         System.out.println("task 4");
         MaxPowerScheduleBuilder scheduleBuilder = new MaxPowerScheduleBuilder(
                 asList(blaster, droid, lightsabre));
-        scheduleBuilder.buildSchedule(10000);
+        Schedule schedule = scheduleBuilder.build(10000);
+        System.out.println("cost: " + schedule.getTotalCost());
+        schedule.print();
     }
 }

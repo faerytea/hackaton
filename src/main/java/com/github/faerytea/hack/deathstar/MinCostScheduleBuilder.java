@@ -19,22 +19,18 @@ import java.util.stream.Collectors;
 @Getter
 public class MinCostScheduleBuilder {
     private Schedule schedule = new Schedule();
-    private Map<String, Integer> works = new HashMap<>();
-    private Map<String, Integer> overkill = new HashMap<>();
+    private Map<String, Integer> works;
+    private Map<String, Integer> overkill;
     long time = 0;
 
-
-    private MinCostScheduleBuilder() {}
-
-    private Schedule build(Product product) {
+    public Schedule build(Product product) {
+        works = new HashMap<>();
+        overkill = new HashMap<>();
         collectWorks(product);
         buildSchedule(product);
         return schedule;
     }
 
-    public static Schedule buildFor(Product product) {
-        return new MinCostScheduleBuilder().build(product);
-    }
 
     private void collectWorks(Product product) {
         product.taskNames.forEach(s -> works.compute(s, (k, v) -> v == null ? 1 : v + 1));
