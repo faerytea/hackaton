@@ -347,10 +347,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        task1();
-        task2();
+//        task1();
+//        task2();
         task3();
-        task4();
+//        task4();
     }
 
     private static void task2() {
@@ -393,7 +393,10 @@ public class Main {
         val powers = new ArrayList<Integer>();
         Schedule best = null;
         int bestPower = 0;
-        for (int droids = 0; droids < 70; ++droids) {
+        int bestDroid = 0;
+        int bestBlast = 0;
+        int bestSword = 0;
+        for (int droids = 0; droids < 100; ++droids) {
             for (int blast = 0; blast < 50; ++blast) {
                 for (int sword = 0; sword < 15; ++sword) {
                     int power = FastWeapon.power(sword, droids, blast);
@@ -403,6 +406,9 @@ public class Main {
                     if (time <= 1000) {
                         bestPower = power;
                         best = res;
+                        bestDroid = droids;
+                        bestBlast = blast;
+                        bestSword = sword;
                     } else if (time < 1010) {
                         schedules.add(res);
                         powers.add(power);
@@ -412,6 +418,7 @@ public class Main {
         }
         System.out.println(" ----------- BEST ------------");
         System.out.println("power: " + bestPower);
+        System.out.println(bestDroid + " droids, " + bestBlast + " blasters and " + bestSword + " lightsabers");
         assert best != null;
         best.print();
         System.out.println(" ----------- OTHERS ------------");
