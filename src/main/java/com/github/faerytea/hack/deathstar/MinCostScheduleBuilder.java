@@ -89,7 +89,7 @@ public class MinCostScheduleBuilder {
                     schedule.addEvent(task, firstW, time);
                     time += fst.time;
                 }
-                ++time; // second warm up
+                //++time; // second warm up
                 for (int i = 0; i < bestY; ++i) {
                     schedule.addEvent(task, secondW, time);
                     time += snd.time;

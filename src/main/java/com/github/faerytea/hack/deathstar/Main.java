@@ -370,7 +370,7 @@ public class Main {
 
     private static void task1() {
         System.out.println("task 1");
-        long endTimeOfOpticsWork = 16106; //see task2,
+        long endTimeOfOpticsWork = 16105; //see task2,
         val schedule = new MinCostScheduleBuilder().build(deathStar);
         int eventsCount = schedule.getEvents().size();
         schedule.getEvents().stream()
@@ -378,10 +378,11 @@ public class Main {
                 .filter(e -> e.getStartTime() > endTimeOfOpticsWork)
                 .forEach(e -> e.setStartTime(e.getStartTime() - endTimeOfOpticsWork));
         val buildDeathStar = schedule.getEvents().subList(eventsCount - 7, eventsCount);
-        val startBuildingDeathStarTimeDiff = 24859 - 16106;
+        val startBuildingDeathStarTimeDiff = 24838 - 16105;
         buildDeathStar.stream()
                 .forEach(e -> e.setStartTime(e.getStartTime() - startBuildingDeathStarTimeDiff));
         System.out.println("time: " + schedule.getTotalTime());
+        System.out.println("cost: " + schedule.getTotalCost());
         schedule.print();
     }
 }
