@@ -22,10 +22,10 @@ public class Schedule {
     }
 
     public void print() {
-        System.out.println("   Start   Finish     Cost                                      Who What");
+        System.out.println("   Start    Finish      Cost                                       Who  What");
         events.forEach(event ->
                 System.out.printf(
-                        "%8d %8d %8d %40s %s\n",
+                        "%8d, %8d, %8d, %40s, %s\n",
                         event.startTime,
                         event.startTime + event.work.time,
                         event.work.cost,
