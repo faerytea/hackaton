@@ -112,8 +112,12 @@ public class Main {
             droidLabors.add(new Work("Монтаж тяжёлого лазера", 30, 90));
             sithhLabors.add(new Work("Монтаж реактора", 5, 1500));
             droidLabors.add(new Work("Монтаж реактора", 40, 150));
-            sithhLabors.add(new Work("Вставка сердечника", 3, 50));
-            droidLabors.add(new Work("Вставка сердечника", 4, 40));
+            sithhLabors.add(new Work("Вставка сердечника катушки", 3, 50));
+            droidLabors.add(new Work("Вставка сердечника катушки", 4, 40));
+            sithhLabors.add(new Work("Вставка сердечника соленоида", 3, 50));
+            droidLabors.add(new Work("Вставка сердечника соленоида", 4, 40));
+            sithhLabors.add(new Work("Вставка сердечника корректирующей катушки", 3, 50));
+            droidLabors.add(new Work("Вставка сердечника корректирующей катушки", 4, 40));
             sithhLabors.add(new Work("Монтаж кассет", 4, 35));
             droidLabors.add(new Work("Монтаж кассет", 2, 25));
             sithhLabors.add(new Work("Изготовление холодильника", 3, 500));
@@ -276,15 +280,15 @@ public class Main {
                         asList(bioProtection, bioProtection, bioProtection, bioProtection, bioProtection));
                 val coil = new Product(
                         "Катушка",
-                        asList("Сгибание проволоки катушки", "Вставка сердечника"),
+                        asList("Сгибание проволоки катушки", "Вставка сердечника катушки"),
                         asList(threadPl, threadPl));
                 val solenoid = new Product(
                         "Соленоид",
-                        asList("Сгибание проволоки соленоида", "Вставка сердечника"),
+                        asList("Сгибание проволоки соленоида", "Вставка сердечника соленоида"),
                         singletonList(threadPl));
                 val corCoil = new Product(
                         "Корректирующая катушка",
-                        asList("Сгибание проволоки корректирующей катушки", "Вставка сердечника"),
+                        asList("Сгибание проволоки корректирующей катушки", "Вставка сердечника корректирующей катушки"),
                         singletonList(threadPl));
                 val tokamak = new Product(
                         "Токамак",

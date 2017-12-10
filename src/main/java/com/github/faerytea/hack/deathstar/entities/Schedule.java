@@ -21,10 +21,15 @@ public class Schedule {
     }
 
     public void print() {
-        events.forEach(event -> System.out.println(event.startTime + "\t" +
-                event.getWorker().getName() +
-                " " +
-                event.getWork().getName()));
+        System.out.println("   Start   Finish     Cost                                      Who What");
+        events.forEach(event ->
+                System.out.printf(
+                        "%8d %8d %8d %40s %s\n",
+                        event.startTime,
+                        event.startTime + event.work.time,
+                        event.work.cost,
+                        event.worker.getName(),
+                        event.work.name));
     }
 
     //Без учета переключений!!!
