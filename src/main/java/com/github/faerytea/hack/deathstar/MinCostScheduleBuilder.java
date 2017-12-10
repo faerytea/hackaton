@@ -23,6 +23,7 @@ public class MinCostScheduleBuilder {
     private Map<String, Integer> overkill = new HashMap<>();
     long time = 0;
 
+
     private MinCostScheduleBuilder() {}
 
     private Schedule build(Product product) {

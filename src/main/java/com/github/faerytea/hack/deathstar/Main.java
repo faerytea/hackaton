@@ -348,6 +348,7 @@ public class Main {
 
     public static void main(String[] args) {
         task2();
+        task4();
     }
 
     private static void task2() {
@@ -357,11 +358,10 @@ public class Main {
         schedule.print();
     }
 
-//    private static void task4() {
-//        System.out.println("task 4");
-//        MaxPowerScheduleBuilder scheduleBuilder = new MaxPowerScheduleBuilder(
-//                asList(blaster, droid, lightsabre),
-//                workers);
-//        scheduleBuilder.buildSchedule(10000);
-//    }
+    private static void task4() {
+        System.out.println("task 4");
+        MaxPowerScheduleBuilder scheduleBuilder = new MaxPowerScheduleBuilder(
+                asList(blaster, droid, lightsabre));
+        scheduleBuilder.buildSchedule(10000);
+    }
 }
