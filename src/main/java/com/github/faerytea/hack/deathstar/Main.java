@@ -344,23 +344,20 @@ public class Main {
 
     public static void main(String[] args) {
         task2();
-        task4();
     }
 
     private static void task2() {
         System.out.println("task 2");
-        MinCostScheduleBuilder scheduleBuilder = new MinCostScheduleBuilder(workers);
-        scheduleBuilder.addProduct(deathStar);
-        Schedule schedule = scheduleBuilder.getSchedule();
+        val schedule = MinCostScheduleBuilder.buildFor(deathStar);
         System.out.println("cost: " + schedule.getTotalCost());
         schedule.print();
     }
 
-    private static void task4() {
-        System.out.println("task 4");
-        MaxPowerScheduleBuilder scheduleBuilder = new MaxPowerScheduleBuilder(
-                asList(blaster, droid, lightsabre),
-                workers);
-        scheduleBuilder.buildSchedule(10000);
-    }
+//    private static void task4() {
+//        System.out.println("task 4");
+//        MaxPowerScheduleBuilder scheduleBuilder = new MaxPowerScheduleBuilder(
+//                asList(blaster, droid, lightsabre),
+//                workers);
+//        scheduleBuilder.buildSchedule(10000);
+//    }
 }
