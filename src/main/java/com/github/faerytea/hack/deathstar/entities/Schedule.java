@@ -2,6 +2,7 @@ package com.github.faerytea.hack.deathstar.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.val;
 
 import java.util.ArrayList;
@@ -32,11 +33,10 @@ public class Schedule {
                         event.work.name));
     }
 
-    //Без учета переключений!!!
     public long getTotalTime() {
         return events.stream()
-                .mapToLong(event -> event.getWork().getTime())
-                .sum();
+                .mapToLong(event -> event.startTime + event.work.time)
+                .max().orElse(0);
     }
 
     public long getTotalTimeWithWarmUps() {
@@ -56,10 +56,11 @@ public class Schedule {
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public class ScheduleEvent {
         private final Work work;
         private final Worker worker;
-        private final long startTime;
+        private long startTime;
     }
 }

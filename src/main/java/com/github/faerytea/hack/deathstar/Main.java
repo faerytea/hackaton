@@ -347,6 +347,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        task1();
         task2();
         task4();
     }
@@ -364,6 +365,17 @@ public class Main {
                 asList(blaster, droid, lightsabre));
         Schedule schedule = scheduleBuilder.build(10000);
         System.out.println("cost: " + schedule.getTotalCost());
+        schedule.print();
+    }
+
+    private static void task1() {
+        System.out.println("task 1");
+        long endTimeOfOpticsWork = 16106; //see task2,
+        val schedule = new MinCostScheduleBuilder().build(deathStar);
+        schedule.getEvents().stream()
+                .filter(e -> e.getStartTime() > endTimeOfOpticsWork)
+                .forEach(e -> e.setStartTime(e.getStartTime() - endTimeOfOpticsWork));
+        System.out.println("time: " + schedule.getTotalTime());
         schedule.print();
     }
 }
