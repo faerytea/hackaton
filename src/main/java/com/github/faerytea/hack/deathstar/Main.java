@@ -349,6 +349,7 @@ public class Main {
     public static void main(String[] args) {
         task1();
         task2();
+        task3();
         task4();
     }
 
@@ -377,5 +378,41 @@ public class Main {
                 .forEach(e -> e.setStartTime(e.getStartTime() - endTimeOfOpticsWork));
         System.out.println("time: " + schedule.getTotalTime());
         schedule.print();
+    }
+
+    private static void task3() {
+        System.out.println("task 3");
+        val schedules = new ArrayList<Schedule>();
+        val powers = new ArrayList<Integer>();
+        Schedule best = null;
+        int bestPower = 0;
+        for (int droids = 0; droids < 70; ++droids) {
+            for (int blast = 0; blast < 50; ++blast) {
+                for (int sword = 0; sword < 15; ++sword) {
+                    int power = FastWeapon.power(sword, droids, blast);
+                    if (power < bestPower) continue;
+                    val res = new FastWeapon(sword, droids, blast).compute();
+                    long time = res.getTotalTime();
+                    if (time <= 1000) {
+                        bestPower = power;
+                        best = res;
+                    } else if (time < 1010) {
+                        schedules.add(res);
+                        powers.add(power);
+                    }
+                }
+            }
+        }
+        System.out.println(" ----------- BEST ------------");
+        System.out.println("power: " + bestPower);
+        assert best != null;
+        best.print();
+        System.out.println(" ----------- OTHERS ------------");
+        for (int i = 0; i < schedules.size(); ++i) {
+            if (powers.get(i) <= bestPower) continue;
+            System.out.println("power: " + powers.get(i));
+            System.out.println("time: " + schedules.get(i).getTotalTime());
+            schedules.get(i).print();
+        }
     }
 }
